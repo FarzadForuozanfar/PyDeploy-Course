@@ -403,7 +403,7 @@
             );
             $("#today-status h1").text(collectNumber(response.temperature));
             $("#today-status h6").text(response.description);
-            $("#wind").text(response.wind);
+            $("#wind").text(collectNumber(response.wind));
             const forecast = response.forecast;
             $('#forecast').html('');
             forecast.forEach((item) => {
