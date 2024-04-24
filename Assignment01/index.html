@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 01</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+      *,
+      html {
+        box-sizing: border-box;
+        font-family: "Varela Round", sans-serif;
+      }
+      body {
+        background-image: linear-gradient(200deg, #cf7ef4 0%, #8244cd 40%);
+        height: 100vh !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      .card {
+        width: 280px;
+        height: 530px;
+        border-radius: 10px;
+        box-shadow: -30px 30px 11px 10px #0000002e;
+        background: linear-gradient(200deg, #b4b4e8 0%, #7d83d7 40%);
+        backdrop-filter: blur(8.5px);
+        -webkit-backdrop-filter: blur(8.5px);
+        border-radius: 10px;
+        padding: 15px 20px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        color: #fff;
+        font-weight: 700;
+      }
+      #today-status {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 1.5rem;
+        color: #fff;
+        position: relative;
+      }
+      #today-status h1 {
+        font-size: 89px;
+        margin: 0;
+      }
+      #today-status h1::before {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        right: 45px;
+        border: 3px solid #fff;
+        border-radius: 50%;
+      }
+      #today-status h6 {
+        font-size: larger;
+        margin: 0;
+      }
+      .light-glass {
+        background: rgba(255, 255, 255, 0.35);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border-radius: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+      .search-form {
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        width: 350px;
+        height: 40px;
+        border-radius: 40px;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        transform: translate(-50%, -50%);
+        background: #fff;
+        transition: all 0.3s ease;
+        z-index: 999;
+      }
+      .search-form.focus {
+        box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+      }
+
+      .search-input {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-size: 14px;
+        background: none;
+        color: #5a6674;
+        width: 80%;
+        height: 20px;
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: none;
+      }
+      .search-input::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      .search-button {
+        position: absolute;
+        top: 5px;
+        right: 15px;
+        height: 32px;
+        width: 32px;
+        padding: 0px;
+        margin: 0;
+        border: none;
+        background: none;
+        outline: none !important;
+        cursor: pointer;
+        background-image: linear-gradient(200deg, #8244cd 0%, #8244cd 60%);
+        color: #fff;
+        padding-top: 4px;
+        border-radius: 50%;
+      }
+      .search-button svg {
+        width: 20px;
+        height: 20px;
+        fill: #fff;
+      }
+
+      .search-option {
+        position: absolute;
+        text-align: right;
+        top: 10px;
+        right: 15px;
+      }
+      .search-option div {
+        position: relative;
+        display: inline-block;
+        margin: 0 1px;
+        cursor: pointer;
+      }
+      .search-option div input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.01;
+        cursor: pointer;
+      }
+      .search-option div span {
+        position: absolute;
+        display: block;
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        background: #929aa3;
+        color: #fff;
+        font-size: 9px;
+        letter-spacing: 1px;
+        line-height: 1;
+        text-transform: uppercase;
+        padding: 4px 7px;
+        border-radius: 12px;
+        top: -18px;
+        transition: all 0.2s ease-in-out;
+      }
+      .search-option div span::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-top: 4px solid #929aa3;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        transition: all 0.2s ease-in-out;
+      }
+      .search-option div:hover span {
+        opacity: 1;
+        top: -21px;
+      }
+      .search-option div label {
+        display: block;
+        cursor: pointer;
+      }
+      .search-option div svg {
+        height: 20px;
+        width: 20px;
+        fill: #5a6674;
+        opacity: 0.6;
+        transition: all 0.2s ease-in-out;
+        pointer-events: none;
+      }
+      .search-option div:hover svg {
+        opacity: 1;
+      }
+      .search-option div input:checked + label svg {
+        fill: #e24040;
+        opacity: 0.9;
+      }
+      .search-option div input:checked + label span {
+        background: #e24040;
+      }
+      .search-option div input:checked + label span::after {
+        border-top-color: #e24040;
+      }
+
+      .lds-dual-ring,
+      .lds-dual-ring:after {
+        box-sizing: border-box;
+      }
+      .lds-dual-ring {
+        display: inline-block;
+        width: 80px;
+        height: 80px;
+      }
+      .lds-dual-ring:after {
+        content: " ";
+        display: block;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border-radius: 50%;
+        border: 6.4px solid #fff;
+        border-color: #fff transparent #fff transparent;
+        animation: lds-dual-ring 1.2s linear infinite;
+      }
+      @keyframes lds-dual-ring {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      .hide {
+        display: none !important;
+      }
+    </style>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="search" value="" placeholder="Search" class="search-input" />
+      <button type="button" class="search-button">
+        <svg class="submit-button">
+          <use
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            xlink:href="#search"
+          ></use>
+        </svg>
+      </button>
+    </form>
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" display="none">
+      <symbol id="search" viewBox="0 0 32 32">
+        <path
+          d="M 19.5 3 C 14.26514 3 10 7.2651394 10 12.5 C 10 14.749977 10.810825 16.807458 12.125 18.4375 L 3.28125 27.28125 L 4.71875 28.71875 L 13.5625 19.875 C 15.192542 21.189175 17.250023 22 19.5 22 C 24.73486 22 29 17.73486 29 12.5 C 29 7.2651394 24.73486 3 19.5 3 z M 19.5 5 C 23.65398 5 27 8.3460198 27 12.5 C 27 16.65398 23.65398 20 19.5 20 C 15.34602 20 12 16.65398 12 12.5 C 12 8.3460198 15.34602 5 19.5 5 z"
+        />
+      </symbol>
+    </svg>
+    <div id="card" class="card">
+      <header>
+        <span id="city">Mashhad</span>
+        <span id="time">23:10</span>
+      </header>
+      <div id="today-status">
+        <img width="70%" src="./assets/images/cloudy.png" alt="" />
+        <h1>25</h1>
+        <h6>Cloudy</h6>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 2rem;
+          "
+        >
+          <span>Wind: <b id="wind">6</b> km/h</span>
+          <span>
+            <i style="font-size: 15px" class="fa-solid fa-droplet"></i>
+            <span id="himidutly">72</span> %
+          </span>
+        </div>
+      </div>
+      <div style="padding: 2px 5px; margin: 5px 0;" class="light-glass">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; color: #fff; gap: 3px;">
+          <span style="font-size: small;">MON</span>
+          <img width="70px" src="./assets/images/sunny-cloud.png" alt="">
+          <span>25 </span>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; color: #fff; gap: 3px;">
+          <span style="font-size: small;">MON</span>
+          <img width="70px" src="./assets/images/flash.png" alt="">
+          <span>25 </span>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; color: #fff; gap: 3px;">
+          <span style="font-size: small;">MON</span>
+          <img width="70px" src="./assets/images/rainy.png" alt="">
+          <span>25 </span>
+        </div>
+      </div>
+    </div>
+    <div id="loader" class="lds-dual-ring hide"></div>
+    <script>
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+      
+      const weatherStatus = [
+        "cloudy",
+        "flash",
+        "rainy",
+        "snowy",
+        "sunny-cloud",
+        "sunny",
+      ];
+      const baseUrl = "https://goweather.herokuapp.com/weather/";
+
+      $("button").click(() => {
+        $.ajax({
+          url: baseUrl + $("input").val(),
+          method: "GET",
+          dataType: "json",
+          timeout: 10000,
+          beforeSend: function () {
+            $("#card").addClass("hide");
+            $("#loader").removeClass("hide");
+            $('button').attr('disabled', true);
+          },
+          success: function (response) {
+            if (!response.description) {
+              Toast.fire({
+                icon: "warning",
+                title: "Not Found",
+              });
+              return;
+            }
+            $("#card").removeClass("hide");
+            $("#city").text($("input").val());
+            $("#time").text(getCurrentTime());
+            $("#today-status img").attr(
+              "src",
+              "./assets/images/" + getImgStatus(response.description) + ".png"
+            );
+            $("#today-status h1").text(collectNumber(response.temperature));
+            $("#today-status h6").text(response.description);
+            $("#wind").text(response.wind);
+          },
+          error: function (xhr, status, error) {
+            Toast.fire({
+              icon: "error",
+              title: error,
+            });
+          },
+          complete: function () {
+            $("#loader").addClass("hide");
+            $('button').removeAttr('disabled');
+          },
+        });
+      });
+
+      function getCurrentTime() {
+        const options = {
+          timeZone: "Asia/Tehran",
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        };
+
+        return new Date().toLocaleTimeString("en-US", options);
+      }
+
+      function getImgStatus(desc) {
+        if (desc.includes("rain")) return weatherStatus[2];
+        else if (desc.includes("cloud") || desc.includes("cloudy"))
+          return weatherStatus[0];
+        else if (desc.includes("sun") || desc.includes("Sunny"))
+          return weatherStatus[5];
+        else if (desc.includes("Thunderstorm")) return weatherStatus[1];
+        return weatherStatus[Math.floor(Math.random() * weatherStatus.length)];
+      }
+
+      function collectNumber(str) {
+        return parseInt(str.match(/\d+/)[0]);
+      }
+    </script>
+  </body>
+</html>
