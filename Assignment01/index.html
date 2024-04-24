@@ -450,6 +450,7 @@
       }
 
       function getImgStatus(desc) {
+        if (!desc) return weatherStatus[Math.floor(Math.random() * weatherStatus.length)];
         if (desc.includes("rain")) return weatherStatus[2];
         else if (desc.includes("cloud") || desc.includes("cloudy"))
           return weatherStatus[0];
