@@ -31,10 +31,8 @@ payload = {
     "api-key": PLANETNET_API_KEY
 }
 
-
-file  = 'red_rose_image.png'
 files = {
-    'images': open(f'{file}','rb')
+    'images': open('red_rose_image.png','rb')
 }
 
 response = requests.post(url, params=payload, files=files)
