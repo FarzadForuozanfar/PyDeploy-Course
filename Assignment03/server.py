@@ -45,7 +45,7 @@ def read_image(sin_name: str):
     if index != None:
         image_path = data['images'][index]
         with open(image_path, "rb") as file:
-            return StreamingResponse(io.BytesIO(file.read()), media_type='image/png')
+            return StreamingResponse(io.BytesIO(file.read()), media_type='image/jpg')
 
     else:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Sins Not Found')
