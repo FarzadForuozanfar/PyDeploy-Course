@@ -10,4 +10,4 @@ a simple webserver based on fast api
 get and show requests package info
 
 ## 04 Github API
-use github user api to show follower and followings
+use <a href='https://api.github.com/users'>github user api </a>to show follower and followings
