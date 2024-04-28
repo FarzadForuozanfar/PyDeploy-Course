@@ -1,0 +1,6 @@
+[
+  {
+    "type": "sqlite",
+    "path": "d:\\PyDeploy-Course\\Assignment04\\Todo_App\\todo.db"
+  }
+]
