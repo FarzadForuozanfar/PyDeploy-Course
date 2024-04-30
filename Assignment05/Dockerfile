@@ -1,5 +1,5 @@
 # 
-FROM python3.11
+FROM python
 
 # 
 WORKDIR /code
