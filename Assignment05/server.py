@@ -8,6 +8,41 @@ conn = sqlite3.connect('todo.db')
 conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
+try:
+    # Check if the todos table exists
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='todos'")
+    table_exists = cursor.fetchone()
+
+    # If the todos table does not exist, create it
+    if not table_exists:
+        cursor.execute("""
+        CREATE TABLE "todos" (
+            "id"    INTEGER,
+            "title" TEXT NOT NULL,
+            "description"   TEXT NOT NULL,
+            "time"  TEXT,
+            "status"    INTEGER DEFAULT 0,
+            PRIMARY KEY("id" AUTOINCREMENT)
+        )
+        """)
+        conn.commit()
+        print("Table 'todos' created successfully")
+
+except sqlite3.Error as e:
+    print(f"An error occurred: {e}")
+    cursor.execute("""
+        CREATE TABLE "todos" (
+            "id"    INTEGER,
+            "title" TEXT NOT NULL,
+            "description"   TEXT NOT NULL,
+            "time"  TEXT,
+            "status"    INTEGER DEFAULT 0,
+            PRIMARY KEY("id" AUTOINCREMENT)
+        )
+        """)
+    conn.commit()
+    print("Table 'todos' created successfully")
+
 # Create a new todo
 @app.post("/todos/")
 async def create_todo(title: str = Form(), description: str = Form()):
