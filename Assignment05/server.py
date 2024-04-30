@@ -9,6 +9,7 @@ conn.row_factory = sqlite3.Row
 cursor = conn.cursor()
 
 async def check_db_exist(cursor):
+    print("Check 'todos' DB")
     try:
         # Check if the todos table exists
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='todos'")
@@ -45,7 +46,7 @@ async def create_todo(title: str = Form(), description: str = Form()):
 # Get all todos
 @app.get("/todos/")
 async def get_todos():
-    check_db_exist(cursor=cursor)
+    await check_db_exist(cursor=cursor)
     cursor.execute("SELECT * FROM todos")
     todos = cursor.fetchall()
     return {"todos": todos}
