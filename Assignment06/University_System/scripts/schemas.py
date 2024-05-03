@@ -26,7 +26,8 @@ class CourseUpdate(BaseModel):
 class StudentBase(BaseModel):
     firstname: str
     lastname: str
-
+    average: float
+    graduated: bool
 
 class StudentCreate(StudentBase):
     pass
