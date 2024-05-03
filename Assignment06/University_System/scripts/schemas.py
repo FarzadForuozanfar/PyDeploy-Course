@@ -14,7 +14,7 @@ class Course(CourseBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class CourseUpdate(BaseModel):
@@ -43,5 +43,5 @@ class Student(StudentBase):
     graduated: bool
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
