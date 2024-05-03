@@ -5,6 +5,10 @@
 ```shell
 pip install --no-cache-dir --upgrade -r requirements.txt
 ```
+## Config Database database.py (Postgesql):
+```shell
+SQLALCHEMY_DATABASE_URL = "postgresql://[USER]:[PASSWORD]@[HOST]:[PORT]/[DB_NAME]"
+```
 ## Start the application:
 ```shell
 uvicorn server:app --host 127.0.0.4 --reload
