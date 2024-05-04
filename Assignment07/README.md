@@ -21,8 +21,7 @@ python script.py
 ## Dependencies
 
 ```shell
-pip install aiohttp 
-python-dotenv
+pip install aiohttp python-dotenv
 ```
 
 * AIOHTTP
