@@ -20,5 +20,10 @@ python script.py
 
 ## Dependencies
 
+```shell
+pip install aiohttp 
+python-dotenv
+```
+
 * AIOHTTP
 * dotenv
