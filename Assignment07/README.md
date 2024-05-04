@@ -1,6 +1,6 @@
 # Assignment07
 
-Async And Async Programming In Python With [AIOHTTP](https://docs.aiohttp.org/en/stable/) And [AsyncIO](https://docs.python.org/3/library/asyncio.html)
+Sync And Async Programming In Python With [AIOHTTP](https://docs.aiohttp.org/en/stable/) And [AsyncIO](https://docs.python.org/3/library/asyncio.html)
 
 ## Classroom Activities
 
